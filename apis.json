@@ -1,0 +1,54 @@
+{
+    "name": "Truecaller",
+    "description": "Truecaller is transforming today\u2019s phonebook to make it more intelligent and useful.",
+    "image": "http:\/\/kinlane-productions.s3.amazonaws.com\/screen-capture-api\/2164-truecaller.jpg",
+    "tags": [
+        "crowdsourcing",
+        "directories",
+        "have api",
+        "telecommunications"
+    ],
+    "created": "2019-12-19",
+    "modified": "2019-12-19",
+    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/truecaller\/master\/apis.json",
+    "specificationVersion": "0.14",
+    "apis": [
+        {
+            "name": "Truecaller",
+            "description": null,
+            "image": "http:\/\/kinlane-productions.s3.amazonaws.com\/screen-capture-api\/2164-truecaller.jpg",
+            "humanURL": "https:\/\/dev.truecaller.com",
+            "baseURL": "",
+            "tags": [],
+            "properties": [
+                {
+                    "type": "x-openapi",
+                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/truecaller-openapi.json"
+                }
+            ]
+        }
+    ],
+    "include": [],
+    "x-common": [
+        {
+            "type": "Blog",
+            "url": "http:\/\/www.truecaller.com\/blog"
+        },
+        {
+            "type": "Crunchbase",
+            "url": "http:\/\/www.crunchbase.com\/company\/bistri"
+        },
+        {
+            "type": "Crunchbase",
+            "url": "https:\/\/crunchbase.com\/organization\/true-software-scandinavia"
+        },
+        {
+            "type": "Twitter",
+            "url": "https:\/\/twitter.com\/truecaller"
+        },
+        {
+            "type": "Website",
+            "url": "https:\/\/dev.truecaller.com"
+        }
+    ]
+}
