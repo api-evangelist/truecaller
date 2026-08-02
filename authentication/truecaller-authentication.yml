@@ -1,0 +1,64 @@
+generated: '2026-07-21'
+method: searched
+docs:
+- https://docs.truecaller.com/truecaller-sdk/android/latest-oauth-sdk-3.3.0/integration-steps/integrating-with-your-backend/fetching-user-token
+- https://docs.truecaller.com/truecaller-for-business/verified-business-api-documentation/getting-started/authentication
+- https://docs.truecaller.com/truecaller-for-business/verified-business-api-documentation/getting-started/generate-access-token
+- https://oauth-account-noneu.truecaller.com/.well-known/openid-configuration
+summary:
+  types: [oauth2, http bearer, apiKey]
+  oauth2_flows: [authorizationCode (PKCE S256), refreshToken]
+  api_key_in: [header, body]
+schemes:
+- name: Truecaller OAuth 2.0 (user verification)
+  type: oauth2
+  api: truecaller:truecaller-oauth-api
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://oauth-account-noneu.truecaller.com/v1/auth
+    tokenUrl: https://oauth-account-noneu.truecaller.com/v1/token
+    revocationUrl: https://oauth-account-noneu.truecaller.com/v1/revoke
+    pkce: required (S256 code challenge; code_verifier exchanged at the token endpoint)
+    scopes: [openid, profile, phone, email, address, offline_access]
+  - flow: refreshToken
+    tokenUrl: https://oauth-account-noneu.truecaller.com/v1/token
+  token_type: Bearer
+  access_token_ttl_seconds: 3600
+  id_token_signing: RS256, per-client JWKS at /.well-known/{clientId}/jwks.json
+  client_credentials: public client_id only (generated on the developer portal); no client secret in the mobile flow
+- name: Bearer access token (userinfo / profile fetch)
+  type: http
+  scheme: bearer
+  apis: [truecaller:truecaller-oauth-api, truecaller:truecaller-web-sdk-profile-api]
+  detail: >-
+    GET /v1/userinfo (OAuth API) and GET /v1/default (Web SDK profile host)
+    require Authorization Bearer with the access token issued for the
+    verification request.
+- name: clientId header (non-Truecaller user validation)
+  type: apiKey
+  in: header
+  parameter: clientId
+  api: truecaller:truecaller-otp-verification-api
+  detail: >-
+    GET /v1/otp/client/installation/phoneNumberDetail/{accessToken} is
+    authenticated with the partner's Client ID sent as the clientId header.
+- name: partnerKey (mobile web deep link)
+  type: apiKey
+  in: query (deep link parameter)
+  parameter: partnerKey
+  api: truecaller:truecaller-web-sdk-profile-api
+  detail: >-
+    The truecallersdk:// web_verify deep link carries the app key generated
+    from the developer portal as partnerKey; Truecaller then POSTs the access
+    token to the partner's registered callback URL.
+- name: Truecaller for Business API key exchange
+  type: apiKey
+  in: body (exchanged for a bearer token)
+  parameters: [key_id, api_key]
+  api: truecaller:truecaller-for-business-api
+  detail: >-
+    Key ID + Secret API Key are created on the business console (max 5 keys
+    per account) and exchanged at POST /clients/{clientAccountId}/token
+    (X-Public-Access: allow header) for a bearer token. Max 10 tokens per 30
+    minutes; each token is valid 60 minutes. All Verified Business API calls
+    then use Authorization Bearer.

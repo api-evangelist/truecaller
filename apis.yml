@@ -1,28 +1,234 @@
 aid: truecaller
 name: Truecaller
-description: 'Truecaller is a company surfaced as a portfolio company of atomico, balderton-capital and
-  added to the API Evangelist network as a stub for enrichment. Sector: consumer. This profile is a lead
-  awaiting the enrichment pipeline.'
+description: >-
+  Truecaller is the Stockholm-based caller identification and spam-blocking
+  platform (atomico and balderton-capital portfolio) used by hundreds of
+  millions of people to know who is calling. For developers it publishes the
+  Truecaller SDK for Android, iOS, mobile web, Flutter, React Native and
+  Shopify - one-tap phone-number verification built on OAuth 2.0 with PKCE
+  (authorization code + refresh token, OIDC-style userinfo) plus a drop-call /
+  IM-OTP flow for non-Truecaller users. Truecaller for Business adds REST APIs
+  on enterprise-portal-noneu.truecaller.com for verified business caller ID:
+  call personalisation (dynamic caller ID), number management, verified
+  campaigns, and Call Me Back / User Feedback webhooks.
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://www.truecaller.com/open-graph.jpg
 url: https://raw.githubusercontent.com/api-evangelist/truecaller/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - atomico
 - balderton-capital
-x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier: profiled
+x-tier-reason: enriched-from-portfolio-lead
+x-enrichment:
+  date: '2026-07-21'
+  status: enriched
+  artifacts_added: 17
+  pass: local-v1
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-21'
 tags:
 - Company
 - Consumer
-apis: []
+- Caller ID
+- Phone Verification
+- Identity
+- OAuth
+- Spam Detection
+- Communications
+- Mobile SDK
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
-- type: Website
+- type: VulnerabilityDisclosure
+  url: security/truecaller-vulnerability-disclosure.yml
+- name: Truecaller Responsible Disclosure & Bug Bounty
+  url: https://www.truecaller.com/responsible-disclosure
+  type: Security
+- type: DomainSecurity
+  url: security/truecaller-domain-security.yml
+- name: Truecaller Packages and SDKs
+  url: packages/truecaller-packages.yml
+  type: Packages
+- name: Truecaller SDKs (Android, iOS, Flutter)
+  url: packages/truecaller-packages.yml
+  type: SDKs
+- name: Truecaller Well-Known Index
+  url: well-known/truecaller-well-known.yml
+  type: WellKnown
+- name: Truecaller security.txt
+  url: well-known/truecaller-security.txt
+  type: SecurityTxt
+- name: Truecaller OAuth OpenID Configuration
+  url: well-known/truecaller-openid-configuration.json
+  type: OpenIDConnect
+- name: Truecaller llms.txt (Truecaller SDK docs)
+  url: llms/truecaller-llms.txt
+  type: LLMsTxt
+- name: Truecaller for Business llms.txt
+  url: llms/truecaller-business-llms.txt
+  type: LLMsTxt
+- name: Truecaller Authentication Profile
+  url: authentication/truecaller-authentication.yml
+  type: Authentication
+- name: Truecaller OAuth Scopes
+  url: scopes/truecaller-scopes.yml
+  type: OAuthScopes
+- name: Truecaller API Conventions
+  url: conventions/truecaller-conventions.yml
+  type: Conventions
+- name: Truecaller Error Catalog
+  url: errors/truecaller-error-codes.yml
+  type: ErrorCatalog
+- name: Truecaller Lifecycle
+  url: lifecycle/truecaller-lifecycle.yml
+  type: Lifecycle
+- name: Truecaller Deprecated APIs
+  url: https://docs.truecaller.com/truecaller-for-business/verified-business-api-documentation/deprecated-apis
+  type: Deprecation
+- name: Truecaller Conformance
+  url: conformance/truecaller-conformance.yml
+  type: Conformance
+- name: Truecaller SDK Change Log
+  url: changelog/truecaller-changelog.yml
+  type: ChangeLog
+- name: Truecaller Embedded Components
+  url: components/truecaller-components.yml
+  type: Components
+- name: Truecaller Webhooks
+  url: asyncapi/truecaller-webhooks.yml
+  type: Webhooks
+- name: Truecaller
   url: https://www.truecaller.com
+  type: Website
+- name: Truecaller for Developers
+  url: https://developer.truecaller.com
+  type: DeveloperPortal
+- name: Truecaller SDK Documentation
+  url: https://docs.truecaller.com/truecaller-sdk
+  type: Documentation
+- name: Truecaller for Business API Reference
+  url: https://docs.truecaller.com/truecaller-for-business/verified-business-api-documentation/getting-started
+  type: APIReference
+- name: Truecaller SDK Getting Started
+  url: https://docs.truecaller.com/truecaller-sdk/getting-started
+  type: GettingStarted
+- name: Truecaller Developer Support
+  url: https://developer.truecaller.com/support
+  type: Support
+- name: Truecaller Developer Blog
+  url: https://developer.truecaller.com/blog
+  type: Blog
+- name: Truecaller on GitHub
+  url: https://github.com/truecaller
+  type: GitHubOrganization
+- name: Truecaller Developer Portal Sign Up
+  url: https://sdk-console-noneu.truecaller.com/sign-up
+  type: SignUp
+- name: Truecaller Terms of Service
+  url: https://www.truecaller.com/terms-of-service
+  type: TermsOfService
+- name: Truecaller Privacy Policy
+  url: https://www.truecaller.com/privacy-policy
+  type: PrivacyPolicy
+apis:
+- aid: truecaller:truecaller-oauth-api
+  name: Truecaller OAuth User Verification API
+  humanURL: https://docs.truecaller.com/truecaller-sdk/android/latest-oauth-sdk-3.3.0/integration-steps/integrating-with-your-backend
+  baseURL: https://oauth-account-noneu.truecaller.com
+  tags:
+  - OAuth
+  - OpenID Connect
+  - Phone Verification
+  - Identity
+  - Token
+  - UserInfo
+  description: >-
+    The backend half of the Truecaller OAuth SDK flow. After the mobile SDK
+    returns an authorization code, partners exchange it at POST /v1/token
+    (authorization_code grant with PKCE code_verifier; refresh_token also
+    supported) and fetch the verified user profile at GET /v1/userinfo with
+    the Bearer access token. The host publishes OpenID Connect discovery at
+    /.well-known/openid-configuration with /v1/auth, /v1/token, /v1/revoke,
+    per-client JWKS, RS256 id tokens, and S256 PKCE.
+  properties:
+  - url: https://docs.truecaller.com/truecaller-sdk/android/latest-oauth-sdk-3.3.0/integration-steps/integrating-with-your-backend/fetching-user-token
+    type: Documentation
+  - url: https://docs.truecaller.com/truecaller-sdk/android/latest-oauth-sdk-3.3.0/integration-steps/integrating-with-your-backend/fetching-user-profile
+    type: APIReference
+- aid: truecaller:truecaller-otp-verification-api
+  name: Truecaller Non-Truecaller User Verification API
+  humanURL: https://docs.truecaller.com/truecaller-sdk/android/latest-oauth-sdk-3.3.0/integration-steps/non-truecaller-user-verification/server-side-validation
+  baseURL: https://sdk-otp-verification-noneu.truecaller.com
+  tags:
+  - Phone Verification
+  - OTP
+  - Missed Call
+  - Validation
+  description: >-
+    Server-side validation for the drop-call / IM-OTP verification flow that
+    covers users without the Truecaller app. GET
+    /v1/otp/client/installation/phoneNumberDetail/{accessToken} (clientId
+    header) returns the verified phone number and country code for the access
+    token issued by the SDK.
+  properties:
+  - url: https://docs.truecaller.com/truecaller-sdk/android/latest-oauth-sdk-3.3.0/integration-steps/non-truecaller-user-verification/server-side-validation
+    type: Documentation
+- aid: truecaller:truecaller-web-sdk-profile-api
+  name: Truecaller Web SDK Profile API
+  humanURL: https://docs.truecaller.com/truecaller-sdk/mobile-websites/integrating-with-your-mobile-website/fetch-user-profile
+  baseURL: https://profile4-noneu.truecaller.com
+  tags:
+  - Phone Verification
+  - Profile
+  - Mobile Web
+  description: >-
+    Profile retrieval for the mobile-web (deep link) verification flow. After
+    a user consents in the Truecaller app, Truecaller POSTs the accessToken
+    and requestId to the partner's callback URL together with the profile
+    endpoint (GET /v1/default with Bearer token), which returns the user's
+    verified phone numbers, name, addresses and online identities.
+  properties:
+  - url: https://docs.truecaller.com/truecaller-sdk/mobile-websites/integrating-with-your-mobile-website/fetch-user-profile
+    type: Documentation
+- aid: truecaller:truecaller-for-business-api
+  name: Truecaller for Business API
+  humanURL: https://docs.truecaller.com/truecaller-for-business/verified-business-api-documentation/getting-started
+  baseURL: https://enterprise-portal-noneu.truecaller.com
+  tags:
+  - Verified Business Caller ID
+  - Call Personalisation
+  - Number Management
+  - Verified Campaigns
+  - Webhooks
+  description: >-
+    REST APIs for Truecaller's Verified Business Caller ID platform. Partners
+    exchange a Key ID + Secret API Key for a 60-minute bearer token (POST
+    /clients/{clientAccountId}/token), then push dynamic caller-ID
+    personalisation in real time (POST
+    /v2/clients/{clientAccountId}/dynamic_call_record, 100 rps per token) or
+    batch, check batch status, read dynamic labels, list/delist business
+    numbers under feature sets, and run Verified Campaigns (bulk upload and
+    exit via enterprise-webhooks-noneu.truecaller.com). Call Me Back and User
+    Feedback events are delivered by configurable webhooks.
+  properties:
+  - url: https://docs.truecaller.com/truecaller-for-business/verified-business-api-documentation/getting-started
+    type: Documentation
+  - url: https://docs.truecaller.com/truecaller-for-business/verified-business-api-documentation/getting-started/generate-access-token
+    type: GettingStarted

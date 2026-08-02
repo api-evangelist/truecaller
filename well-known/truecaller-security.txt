@@ -1,0 +1,17 @@
+# Our security address:
+Contact: mailto:security@truecaller.com
+
+# We are also on HackerOne:
+# https://hackerone.com/truecaller
+
+# Please communicate with us in English.
+Preferred-Languages: en
+
+# Open Security positions:
+Hiring: https://www.truecaller.com/careers/jobs?l=all&d=82936
+
+# Canonical URLs:
+Canonical: https://www.truecaller.com/.well-known/security.txt
+Canonical: https://www.truecaller.com/security.txt
+
+Expires: 2027-11-21T23:00:00.000Z

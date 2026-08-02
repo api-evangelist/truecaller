@@ -1,0 +1,77 @@
+generated: '2026-07-21'
+method: searched
+source: >-
+  docs.truecaller.com/truecaller-sdk (fetching-user-token,
+  fetching-user-profile, server-side-validation, handling-error-scenarios,
+  trueexception) and docs.truecaller.com/truecaller-for-business
+  (generate-access-token, call-personalisation-real-time-v2,
+  call-personalisation-errors)
+format: provider-specific (no RFC 9457; envelopes documented per API below)
+
+envelopes:
+- api: truecaller:truecaller-otp-verification-api
+  shape: '{"code": <int>, "message": "<string>"}'
+- api: truecaller:truecaller-for-business-api (token endpoint)
+  shape: '{"slug": "<string>", "message": "<string>"}'
+- api: truecaller:truecaller-for-business-api (call personalisation)
+  shape: '{"status_info": {"status": "error", "field": "<field>", "message": "<string>"}}'
+
+http_errors:
+- api: truecaller:truecaller-oauth-api
+  operation: POST /v1/token
+  statuses:
+  - {status: 400, meaning: Grant type not supported, or required parameters empty}
+  - {status: 403, meaning: Invalid client id; grant type not allowed for client; invalid or expired auth code; invalid or expired code verifier}
+  - {status: 429, meaning: Request rate exceeds the allowed limit}
+  - {status: 500, meaning: Unexpected server error}
+  - {status: 503, meaning: Resource unavailable due to server-side issue}
+- api: truecaller:truecaller-oauth-api
+  operation: GET /v1/userinfo
+  statuses:
+  - {status: 401, meaning: Authentication type is not bearer token, or token invalid/expired}
+  - {status: 404, meaning: Profile information not present for the user}
+  - {status: 422, meaning: openid scope missing in the initial authorization request}
+  - {status: 500, meaning: Failed to validate token / unexpected server error}
+- api: truecaller:truecaller-web-sdk-profile-api
+  operation: GET /v1/default
+  statuses:
+  - {status: 401, meaning: Credentials not valid}
+  - {status: 5xx, meaning: Server error}
+- api: truecaller:truecaller-otp-verification-api
+  operation: GET /v1/otp/client/installation/phoneNumberDetail/{accessToken}
+  statuses:
+  - {status: 404, code: 404, meaning: Invalid partner credentials}
+  - {status: 404, code: 1404, meaning: Invalid access token}
+  - {status: 500, code: 500, meaning: Internal error}
+
+sdk_error_codes:
+  description: onFailure() error codes surfaced by the Android OAuth SDK consent flow.
+  codes:
+  - {code: 0, meaning: Something went wrong}
+  - {code: 2, meaning: User denied while loading}
+  - {code: 5, meaning: Truecaller app is not installed or not logged in}
+  - {code: 6, meaning: Conflicting request code in onActivityResult, or Truecaller SDK too old / not compatible}
+  - {code: 7, meaning: Truecaller app closed unexpectedly}
+  - {code: 10, meaning: Truecaller user has an invalid account state}
+  - {code: 11, meaning: User denied by pressing the footer button}
+  - {code: 12, meaning: Invalid partner or partner information missing}
+  - {code: 14, meaning: User denied by dismissing consent screen}
+  - {code: 16, meaning: Device is not supported}
+
+true_exception_codes:
+  description: TrueException codes for the non-Truecaller (drop call / IM-OTP) verification flow.
+  codes:
+  - {code: 2, meaning: Phone number or request-id verification-attempt limit reached (24h window); invalid partner credentials; invalid phone number; failed to create installation; profile not created}
+  - {code: 4, meaning: Desired permissions are missing}
+  - {code: 5, meaning: Invalid name (1-128 chars, at least one alphabet, not all numeric/special)}
+  - {code: 6, meaning: SIM state is not ready}
+  - {code: 7, meaning: Airplane mode is ON}
+
+business_call_personalisation_errors:
+  description: Error reasons returned by the Call Personalisation v2 APIs.
+  reasons:
+  - {reason: Invalid input, remediation: Check request body shape, key names, and disallowed special characters in call reason}
+  - {reason: Not a Truecaller user, remediation: Receiver is not a Truecaller user or uninstalled the app}
+  - {reason: OS not supported, remediation: Personalised call reason is Android-only}
+  - {reason: App version not supported, remediation: Receiver runs an unsupported old Android version}
+  - {reason: Failed to push, remediation: Could not reach the receiver's device (out of network, bad internet, airplane mode)}

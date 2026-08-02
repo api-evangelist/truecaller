@@ -1,0 +1,75 @@
+generated: '2026-07-21'
+method: searched
+source: >-
+  https://docs.truecaller.com/truecaller-for-business/verified-business-api-documentation/webhooks
+  and https://docs.truecaller.com/truecaller-sdk/mobile-websites/integrating-with-your-mobile-website/fetch-user-profile
+spec_type: Webhooks
+notes: >-
+  Truecaller publishes no AsyncAPI document; this captures the documented
+  webhook/event surface verbatim from the docs.
+
+surfaces:
+- name: Truecaller for Business webhooks
+  docs: https://docs.truecaller.com/truecaller-for-business/verified-business-api-documentation/webhooks
+  configuration:
+    where: Business console -> Manage Webhooks (max 5 webhooks per account; unique names <= 50 chars)
+    url_security: self-generated key recommended as a URL parameter (e.g. ?key=<yourkey>)
+    consumer_contract: respond with 2xx status and content-type application/json with a JSON body
+    test_tooling: Test Webhook button per webhook (default event Call Me Back)
+    event_logs: retained 30 days (Manage Webhooks + Webhook events pages)
+  delivery:
+    timeouts: {connection_ms: 2000, read_ms: 2000}
+    retries:
+      max_attempts: 7
+      schedule: [2 minutes, 6 minutes, 30 minutes, 1 hour, 5 hours, 1 day, 2 days]
+    duplicates: possible; consumers should deduplicate by event_id
+  events:
+  - event_type: cmb
+    name: Call Me Back
+    trigger: User requests a call back from the Truecaller app after a missed/rejected call
+    payload_fields:
+      event_id: UUID event identifier
+      client_account_id: business account UUID
+      event_type: cmb
+      created_at: epoch seconds (string)
+      cmb_payload:
+        business_number: calling business number
+        feature_set: feature set name
+        client_number: user's number ("Phone number not available" when SIM info is unreadable)
+        requested_at: epoch seconds
+        requested_date: YYYY-MM-DD or NA
+        requested_slot: day/slot label or NA
+        preferred_from_time: epoch seconds or null
+        preferred_to_time: epoch seconds or null
+        is_interested: boolean (false for Not Interested responses)
+        alternate_number: user-supplied alternate number, may be empty
+        cmb_config_name: Call Me Back configuration name
+  - event_type: user_feedback
+    name: User Feedback
+    trigger: User responds to a feedback campaign (answered or missed/rejected call)
+    payload_fields:
+      event_id: UUID event identifier
+      client_account_id: business account UUID
+      event_type: feedback event type
+      created_at: epoch seconds (string)
+      content: JSON structure of the campaign response payload
+- name: Verified Campaigns webhook connectors
+  docs: https://docs.truecaller.com/truecaller-for-business/verified-campaigns/api-webhook-documentation/webhook-connectors
+  notes: >-
+    Webhook connectors let campaign platforms receive Verified Campaigns
+    events; setup and token regeneration are documented under the Verified
+    Campaigns API/Webhook documentation. Campaign exit is pushed via POST
+    https://enterprise-webhooks-noneu.truecaller.com/v2/campaigns/exit.
+- name: Mobile web SDK access-token callback
+  docs: https://docs.truecaller.com/truecaller-sdk/mobile-websites/integrating-with-your-mobile-website/fetch-user-profile
+  direction: Truecaller -> partner callback URL
+  events:
+  - name: verification consent granted
+    payload:
+      requestId: the requestNonce from the deep link (correlation id)
+      accessToken: bearer token to fetch the user profile
+      endpoint: profile endpoint to call (e.g. https://profile4-noneu.truecaller.com/v1/default)
+  - name: user rejected
+    payload:
+      requestId: the requestNonce from the deep link
+      status: user_rejected

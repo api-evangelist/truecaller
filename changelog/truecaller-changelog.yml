@@ -1,0 +1,37 @@
+generated: '2026-07-21'
+method: searched
+source: https://docs.truecaller.com/truecaller-sdk/android/change-log
+scheme: semantic SDK versions (no dates published on the change log page)
+current_version: 3.3.0 (Android OAuth SDK)
+entries:
+- version: 3.3.0
+  breaking: false
+  highlights:
+  - Callback for SDK init and new initAsync method
+  - Enhanced BottomSheet OAuth consent screen (VariantB UI from success-rate A/B test)
+- version: 3.2.1
+  breaking: false
+  highlights:
+  - Added SIM and device parameters
+- version: 3.2.0
+  breaking: false
+  highlights:
+  - Replaced deprecated onActivityResult with androidx ActivityResultLauncher API
+  - Dark mode for OAuth SDK popup and bottom sheet
+  - Center popup UI for OAuth flow
+  - Adjusted isOauthFlowUsable logic for installation-sequence cases
+- version: 3.1.0
+  breaking: false
+  highlights:
+  - IM-OTP verification mode for the non-Truecaller flow with auto-read (early access)
+  - Updated AGP to 8.3
+  - Minor bug fixes
+- version: 3.0.0
+  breaking: true
+  highlights:
+  - First public version of the Truecaller OAuth SDK (replaces the app-key based v2.x TruecallerSDK)
+related:
+- name: Product updates (docs)
+  url: https://docs.truecaller.com/truecaller-sdk/product-updates
+- name: Legacy SDK v2.8.0 changelog
+  url: https://docs.truecaller.com/truecaller-sdk/android/sdk-v2.8.0-deprecating-soon/changelog

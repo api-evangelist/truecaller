@@ -1,0 +1,48 @@
+generated: '2026-07-21'
+method: searched
+source: Maven Central, pub.dev, CocoaPods, github.com/truecaller (registry lookups 2026-07-21)
+packages:
+- language: kotlin/java (android)
+  registry: maven-central
+  name: com.truecaller.android.sdk:truecaller-sdk
+  url: https://central.sonatype.com/artifact/com.truecaller.android.sdk/truecaller-sdk
+  install: 'implementation "com.truecaller.android.sdk:truecaller-sdk:3.1.0"'
+  latest_version: 3.1.0
+  packaging: aar
+  official: true
+  notes: >-
+    Truecaller OAuth SDK for Android. Maven Central lists 3.1.0 as latest
+    published (5 versions); the docs describe OAuth SDK 3.3.0 as the latest
+    release train.
+- language: dart (flutter)
+  registry: pub.dev
+  name: truecaller_sdk
+  url: https://pub.dev/packages/truecaller_sdk
+  install: flutter pub add truecaller_sdk
+  latest_version: 1.2.0
+  official: true
+  source_repo: https://github.com/truecaller/flutter-sdk
+  notes: Flutter plugin wrapping the Android OAuth SDK for one-tap number verification.
+- language: objective-c/swift (ios)
+  registry: cocoapods
+  name: TrueSDK
+  url: https://cocoapods.org/pods/TrueSDK
+  install: pod 'TrueSDK'
+  official: true
+  source_repo: https://github.com/truecaller/ios-sdk
+  notes: Truecaller iOS SDK for user verification via the Truecaller iOS app.
+- language: javascript (react native)
+  registry: none (documentation repo)
+  name: truecaller/react-native-sdk
+  url: https://github.com/truecaller/react-native-sdk
+  official: true
+  notes: >-
+    Documentation repo for implementing the Truecaller SDK in React Native
+    apps; no first-party npm package is published (npm lookups for
+    truecaller-web-sdk and @truecaller scope return 404).
+- language: javascript (node backend samples)
+  registry: none (github)
+  name: truecaller/backend-sdk-validation
+  url: https://github.com/truecaller/backend-sdk-validation
+  official: true
+  notes: Sample code for validating SDK responses server-side.

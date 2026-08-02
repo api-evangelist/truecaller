@@ -1,0 +1,46 @@
+generated: '2026-07-21'
+method: searched
+source: https://oauth-account-noneu.truecaller.com/.well-known/openid-configuration
+docs: https://docs.truecaller.com/truecaller-sdk/android/latest-oauth-sdk-3.3.0/integration-steps/setting-up-oauth-parameters
+schemes:
+- name: Truecaller OAuth 2.0
+  issuer: https://oauth-account-noneu.truecaller.com
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://oauth-account-noneu.truecaller.com/v1/auth
+    tokenUrl: https://oauth-account-noneu.truecaller.com/v1/token
+    revocationUrl: https://oauth-account-noneu.truecaller.com/v1/revoke
+    pkce: S256 (required by the SDK integration; code_challenge_methods_supported = [S256])
+  - flow: refreshToken
+    tokenUrl: https://oauth-account-noneu.truecaller.com/v1/token
+  notes: >-
+    grant_types_supported = [authorization_code, refresh_token];
+    response_types_supported = [code]; id tokens signed RS256 with per-client
+    JWKS at /.well-known/{clientId}/jwks.json. Scopes requested in-app via
+    TcSdk.getInstance().setOAuthScopes() must also be selected for the
+    project in the developer portal.
+scopes:
+- scope: openid
+  description: OpenID Connect authentication; required for the userinfo endpoint (422 if missing).
+  flows: [authorizationCode]
+  sources: [openid-configuration scopes_supported, docs]
+- scope: profile
+  description: Read the user's Truecaller profile (given_name, family_name, picture, gender).
+  flows: [authorizationCode]
+  sources: [openid-configuration scopes_supported, docs]
+- scope: phone
+  description: Read the user's verified phone number, country code and phone_number_verified claim.
+  flows: [authorizationCode]
+  sources: [openid-configuration scopes_supported, docs]
+- scope: email
+  description: Read the user's email address.
+  flows: [authorizationCode]
+  sources: [openid-configuration scopes_supported, docs]
+- scope: address
+  description: Read the user's address claims (locality, postal_code).
+  flows: [authorizationCode]
+  sources: [openid-configuration scopes_supported, docs]
+- scope: offline_access
+  description: Obtain a refresh token for long-lived access.
+  flows: [authorizationCode, refreshToken]
+  sources: [openid-configuration scopes_supported, docs]

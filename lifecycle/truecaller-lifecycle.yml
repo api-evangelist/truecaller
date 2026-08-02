@@ -1,0 +1,48 @@
+generated: '2026-07-21'
+method: searched
+source: >-
+  docs.truecaller.com/truecaller-sdk (change-log, sdk-v2.8.0-deprecating-soon,
+  moving-to-production) and docs.truecaller.com/truecaller-for-business
+  (deprecated-apis, migration-to-the-new-truecaller-for-business-console)
+versioning:
+  api_scheme: URI-path versions (v1 on the OAuth/OTP/profile hosts; v1 and v2 on the Verified Business host)
+  sdk_scheme: semantic SDK release trains (OAuth SDK 3.0.0 -> 3.3.0)
+  current:
+    android_oauth_sdk: 3.3.0
+    business_api: v2 (call personalisation)
+  docs: https://docs.truecaller.com/truecaller-sdk/android/change-log
+deprecation:
+  policy_url: https://docs.truecaller.com/truecaller-for-business/verified-business-api-documentation/deprecated-apis
+  sunset_header: false
+  deprecated:
+  - item: Truecaller Android SDK v2.8.0 (app-key based)
+    status: deprecating soon (flagged in docs navigation)
+    docs: https://docs.truecaller.com/truecaller-sdk/android/sdk-v2.8.0-deprecating-soon
+  - item: Call Personalisation Real-time API (v1)
+    status: deprecated; replaced by Call Personalisation Real-time v2
+    docs: https://docs.truecaller.com/truecaller-for-business/verified-business-api-documentation/deprecated-apis/call-personalisation-real-time-api
+  - item: Call Personalisation (Bulk) v1
+    status: deprecated; replaced by Call Personalisation Batch v2
+    docs: https://docs.truecaller.com/truecaller-for-business/verified-business-api-documentation/deprecated-apis/call-personalisation-bulk
+  - item: Batch Status (v1)
+    status: deprecated; replaced by Call Personalization Batch v2 Status
+    docs: https://docs.truecaller.com/truecaller-for-business/verified-business-api-documentation/deprecated-apis/batch-status
+  - item: User Feedback download API
+    status: deprecated; replaced by User Feedback webhooks
+    docs: https://docs.truecaller.com/truecaller-for-business/verified-business-api-documentation/deprecated-apis/user-feedback
+  - item: Call Me Back download API
+    status: deprecated; replaced by Call Me Back webhooks
+    docs: https://docs.truecaller.com/truecaller-for-business/verified-business-api-documentation/deprecated-apis/call-me-back
+  - item: Legacy Truecaller for Business console
+    status: migration to the new console in progress with published timelines
+    docs: https://docs.truecaller.com/truecaller-for-business/migration-to-the-new-truecaller-for-business-console
+release_process:
+  production_review: >-
+    Android apps must submit the project for review on the developer portal
+    before moving to production (Moving to Production docs); Google Play
+    permission-declaration guidance is published per SDK train.
+status_page: null
+status_page_notes: >-
+  No public status page found (status.truecaller.com does not resolve; none
+  linked from the developer portal or docs).
+sla: null

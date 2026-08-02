@@ -1,0 +1,40 @@
+generated: '2026-07-21'
+method: searched
+source: >-
+  https://docs.truecaller.com/truecaller-sdk (mobile-websites, shopify-app,
+  android OAuth SDK customisation pages)
+description: >-
+  Truecaller's client-side / embeddable verification surfaces - prebuilt
+  consent UIs a partner drops into their app, mobile site, or Shopify store.
+  Distinct from the server SDKs catalogued in packages/.
+families:
+- family: Android OAuth consent UI
+  docs: https://docs.truecaller.com/truecaller-sdk/android/latest-oauth-sdk-3.3.0/integration-steps/customisation
+  components:
+  - name: OAuth consent bottom sheet
+    notes: Enhanced BottomSheet consent screen (3.3.0); dark mode supported since 3.2.0
+  - name: OAuth consent popup / center popup
+    notes: Popup and center-popup UI variants for the OAuth flow
+- family: Mobile web verification dialog (deep link)
+  docs: https://docs.truecaller.com/truecaller-sdk/mobile-websites/integrating-with-your-mobile-website/initialisation
+  loader: truecallersdk:// web_verify deep link (type=btmsheet)
+  components:
+  - name: Bottom-sheet verification dialog
+    customization:
+      lang: 12 locales (en, hi, mr, te, ml, ur, pa, ta, bn, kn, sw, ar)
+      loginPrefix: 16 contextual title prefixes (getstarted, checkout, placeorder, ...)
+      loginSuffix: 6 action suffixes (login, signup, register, ...)
+      ctaPrefix: use / continuewith / proceedwith
+      ctaColor / ctaTextColor: hex color (URL-encoded %23 prefix)
+      btnShape: round / rect
+      skipOption: footer CTA (useanothernum, useanothermethod, manualdetails, later)
+      ttl: auto-dismiss timeout in ms (min 8000)
+      privacyUrl / termsUrl: partner policy links shown on the consent screen
+- family: Shopify Number Verification App
+  docs: https://docs.truecaller.com/truecaller-sdk/shopify-app
+  components:
+  - name: Number Verification app block
+    notes: >-
+      Early-access Shopify app block for web stores; configured with an app
+      key from the developer portal and deactivated via the theme editor
+      (Deactivating App Block docs).

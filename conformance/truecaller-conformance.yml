@@ -1,0 +1,50 @@
+generated: '2026-07-21'
+method: searched
+source: >-
+  https://oauth-account-noneu.truecaller.com/.well-known/openid-configuration
+  plus the Truecaller SDK integration docs (docs.truecaller.com/truecaller-sdk)
+standards:
+- id: oauth2
+  conforms: true
+  evidence: >-
+    Authorization code + refresh_token grants at
+    oauth-account-noneu.truecaller.com (/v1/auth, /v1/token, /v1/revoke);
+    documented end-to-end in the OAuth SDK integration steps.
+- id: oauth2-pkce (rfc7636)
+  conforms: true
+  evidence: >-
+    code_challenge_methods_supported = [S256]; SDK integration requires a
+    code verifier/challenge (CodeVerifierUtil) and the token exchange takes
+    code_verifier.
+- id: oidc
+  conforms: true
+  evidence: >-
+    OpenID Connect discovery document published at
+    /.well-known/openid-configuration; openid scope; /v1/userinfo returns
+    standard claims (sub, given_name, family_name, phone_number, email,
+    picture, address); RS256-signed id tokens with per-client JWKS.
+- id: oidc-discovery
+  conforms: true
+  evidence: /.well-known/openid-configuration returns 200 with issuer, endpoints, scopes, grants.
+- id: rfc8414-oauth-authorization-server-metadata
+  conforms: false
+  evidence: /.well-known/oauth-authorization-server returns 404 (OIDC discovery only).
+- id: rfc9116-security-txt
+  conforms: true
+  evidence: >-
+    https://www.truecaller.com/.well-known/security.txt (Contact,
+    Preferred-Languages, Canonical, Expires 2027-11-21).
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: >-
+    Error responses use custom envelopes ({code, message} on the OTP
+    validation API; {slug, message} and {status_info: {status, field,
+    message}} on Truecaller for Business), not application/problem+json.
+- id: idempotency-key
+  conforms: false
+  evidence: >-
+    No Idempotency-Key or equivalent request-replay contract is documented;
+    webhook consumers are instead told to deduplicate by event_id.
+- id: pagination
+  conforms: false
+  evidence: No cross-cutting pagination convention is documented for the public endpoints.

@@ -1,0 +1,61 @@
+generated: '2026-07-21'
+method: searched
+source: probed /.well-known/ on apis.yml + docs hosts (HTTP status recorded per path)
+hosts:
+- host: https://www.truecaller.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    file: truecaller-security.txt
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+- host: https://oauth-account-noneu.truecaller.com
+  documents:
+  - path: /.well-known/openid-configuration
+    status: 200
+    file: truecaller-openid-configuration.json
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+- host: https://developer.truecaller.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+- host: https://docs.truecaller.com
+  notes: GitBook host; all /.well-known/ paths return 307 redirects into the docs site
+  documents:
+  - path: /.well-known/security.txt
+    status: 307
+  - path: /.well-known/openid-configuration
+    status: 307
+- host: https://sdk-otp-verification-noneu.truecaller.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+- host: https://profile4-noneu.truecaller.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404

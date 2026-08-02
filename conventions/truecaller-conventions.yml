@@ -1,0 +1,74 @@
+generated: '2026-07-21'
+method: searched
+source: >-
+  docs.truecaller.com/truecaller-sdk and
+  docs.truecaller.com/truecaller-for-business - cross-cutting request/response
+  semantics collected from the integration, webhook, and API reference pages.
+description: >-
+  How Truecaller's partner-facing APIs behave across operations:
+  authentication style, request correlation, rate limiting, error envelopes,
+  versioning, and webhook delivery semantics. Truecaller has no
+  idempotency-key contract or cross-cutting pagination; correlation and
+  webhook dedupe are the load-bearing conventions.
+
+api_style: REST over HTTPS; JSON responses (OAuth token endpoint accepts application/x-www-form-urlencoded)
+
+authentication:
+  scheme: >-
+    OAuth 2.0 authorization code + PKCE (user verification); Key ID + Secret
+    API Key exchanged for a 60-minute bearer token (Truecaller for Business);
+    clientId header (OTP validation); partnerKey deep-link parameter (mobile web).
+  detail: authentication/truecaller-authentication.yml
+
+idempotency:
+  supported: false
+  notes: >-
+    No Idempotency-Key or replay-safe write contract is documented. For
+    webhooks, Truecaller documents that duplicate events can occur and
+    consumers should deduplicate using event_id.
+
+request_correlation:
+  mechanisms:
+  - OAuth state parameter (~32 char high-entropy string) set via setOAuthState and matched in the callback to prevent request forgery
+  - requestNonce (8-64 chars) on the mobile-web deep link, echoed back as requestId with the access-token callback
+  - event_id (UUID) on every Truecaller for Business webhook event
+
+pagination:
+  style: none documented
+  notes: The documented endpoints operate on single records, batches, or full lists without cursor/offset parameters.
+
+versioning:
+  style: URI path (v1, v2)
+  notes: Verified Business call personalisation moved v1 -> v2; v1 endpoints are documented as deprecated. See lifecycle/truecaller-lifecycle.yml.
+
+rate_limits:
+  signaling: HTTP 429 (documented on the OAuth token endpoint); no rate-limit headers documented
+  published_limits:
+  - endpoint: POST {business}/clients/{clientAccountId}/token
+    limit: 10 tokens per 30 minutes; each token valid 60 minutes
+  - endpoint: POST {business}/v2/clients/{clientAccountId}/dynamic_call_record
+    limit: 100 requests per second per token
+  - flow: non-Truecaller drop-call verification
+    limit: per-phone-number and per-device verification attempt caps in a 24-hour window (TrueException code 2)
+  - resource: API keys
+    limit: max 5 API keys per business account
+  - resource: webhooks
+    limit: max 5 webhooks per business account
+
+error_envelope:
+  shapes:
+  - '{"code": <int>, "message": "<string>"} (OTP validation API)'
+  - '{"slug": "<string>", "message": "<string>"} (business token endpoint)'
+  - '{"status_info": {"status": "error", "field": "<field>", "message": "<string>"}} (call personalisation v2)'
+  detail: errors/truecaller-error-codes.yml
+
+webhooks:
+  delivery: POST JSON to the configured URL; respond 2xx with content-type application/json
+  timeouts: 2,000 ms connection and 2,000 ms read
+  retries: up to 7 retries on failure (2m, 6m, 30m, 1h, 5h, 1d, 2d after the previous attempt)
+  logs: event logs retained 30 days in the business console
+  detail: asyncapi/truecaller-webhooks.yml
+
+data_conventions:
+  phone_numbers: strings in country-code-prefixed format without plus (e.g. "911234567890")
+  timestamps: epoch milliseconds for scheduling fields (starts_at/ends_at); epoch seconds strings on webhook payloads; ISO 8601 on token created_at
