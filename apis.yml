@@ -46,6 +46,16 @@ tags:
 - Caller ID
 - Phone Verification
 - Identity
+- Authentication
+- Spam Detection
+- Communications
+- Mobile SDK
+tags_raw:
+- Company
+- Consumer
+- Caller ID
+- Phone Verification
+- Identity
 - OAuth
 - Spam Detection
 - Communications
@@ -153,6 +163,13 @@ apis:
   humanURL: https://docs.truecaller.com/truecaller-sdk/android/latest-oauth-sdk-3.3.0/integration-steps/integrating-with-your-backend
   baseURL: https://oauth-account-noneu.truecaller.com
   tags:
+  - Authentication
+  - OpenID Connect
+  - Phone Verification
+  - Identity
+  - Token
+  - UserInfo
+  tags_raw:
   - OAuth
   - OpenID Connect
   - Phone Verification
@@ -212,6 +229,12 @@ apis:
   humanURL: https://docs.truecaller.com/truecaller-for-business/verified-business-api-documentation/getting-started
   baseURL: https://enterprise-portal-noneu.truecaller.com
   tags:
+  - Verified Business Caller ID
+  - Call Personalisation
+  - Number Management
+  - Verified Campaigns
+  - Webhook
+  tags_raw:
   - Verified Business Caller ID
   - Call Personalisation
   - Number Management
