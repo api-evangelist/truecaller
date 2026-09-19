@@ -178,7 +178,7 @@ apis:
   - OpenID Connect
   - Phone Verification
   - Identity
-  - Token
+  - Tokens
   - UserInfo
   tags_raw:
   - OAuth
@@ -223,6 +223,10 @@ apis:
   humanURL: https://docs.truecaller.com/truecaller-sdk/mobile-websites/integrating-with-your-mobile-website/fetch-user-profile
   baseURL: https://profile4-noneu.truecaller.com
   tags:
+  - Phone Verification
+  - Profiles
+  - Mobile Web
+  tags_raw:
   - Phone Verification
   - Profile
   - Mobile Web
